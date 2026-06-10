@@ -28,6 +28,7 @@ import SelectMultiple from '../../common/select/selectMultiple';
 import { getAllDepartment } from '../../../service/department/departmentService';
 import { AddClockInOut } from '../../models/clockInOut/addClockInOut';
 import AlertDialog from '../../common/alertDialog/alertDialog';
+import { BulkClockInOut } from '../../models/clockInOut/bulkClockInOut';
 
 
 const tabData = [
@@ -60,6 +61,8 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
     const [showPdfContent, setShowPdfContent] = useState(false);
     const [department, setDepartment] = useState([]);
     const [openInOutModel, setOpenInOutModel] = useState(false);
+    const [bulkInOutModel, setBulkInOutModel] = useState(false);
+
     const [clockInOutId, setClockInOutId] = useState(null);
     const [filter, setFilter] = useState(null);
     const [dialog, setDialog] = useState({ open: false, title: '', message: '', actionButtonText: '' });
@@ -137,6 +140,14 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
 
     const handleCloseInOutModal = () => {
         setOpenInOutModel(false);
+    }
+
+    const handleCloseBulkInOutModal = () => {
+        setBulkInOutModel(false);
+    }
+
+    const handleOpenBulkInOutModal = () => {
+        setBulkInOutModel(true);
     }
 
     const handleChangeTab = (value) => {
@@ -678,7 +689,7 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
 
     const actionButtons = () => {
         return (
-            <div className='flex justify-start items-center gap-3 w-[23rem]'>
+            <div className='flex justify-start items-center gap-3 w-[33rem]'>
                 <Button type={`button`} useFor={'error'} text={'Download PDF'} isLoading={loadingPdf} onClick={() => generatePDF()} startIcon={<CustomIcons iconName="fa-solid fa-file-pdf" css="h-5 w-5" />} />
                 <PermissionWrapper
                     functionalityName="Time Card"
@@ -686,6 +697,14 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
                     actionId={1}
                     component={
                         <Button type={`button`} text={'Clock In/Out'} onClick={() => handleOpenInOutModal()} startIcon={<CustomIcons iconName="fa-solid fa-plus" css="h-5 w-5" />} />
+                    }
+                />
+                <PermissionWrapper
+                    functionalityName="Time Card"
+                    moduleName="Clock-In-Out"
+                    actionId={1}
+                    component={
+                        <Button type={`button`} useFor='success' text={'Bulk In/Out'} onClick={() => handleOpenBulkInOutModal()} startIcon={<CustomIcons iconName="fa-solid fa-plus" css="h-5 w-5" />} />
                     }
                 />
             </div>
@@ -828,6 +847,8 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
                 </div>
             )}
             <AddClockInOut open={openInOutModel} handleClose={handleCloseInOutModal} employeeList={users} getRecords={handleCallFilterAPI} id={clockInOutId} />
+            <BulkClockInOut open={bulkInOutModel} handleClose={handleCloseBulkInOutModal} getRecords={handleCallFilterAPI} />
+
             <AlertDialog open={dialog.open} title={dialog.title} message={dialog.message} actionButtonText={dialog.actionButtonText} handleAction={handleDeleteUserInOut} handleClose={handleCloseDialog} loading={loading} />
         </>
     );

@@ -78,7 +78,7 @@ export const getUserLastInOut = async (id) => {
     }
 }
 
-export const addUserTimeIn = async (id,companyId) => {
+export const addUserTimeIn = async (id, companyId) => {
     try {
         const response = axiosInterceptor().post(`${userInOutURL}/create?locationId=${id}&companyId=${companyId}`)
         return response
@@ -99,7 +99,7 @@ export const updateUserTimeIn = async (id) => {
 
 export const updateUserTimeRecord = async (data) => {
     try {
-        const response = axiosInterceptor().put(`${userInOutURL}/update`,data)
+        const response = axiosInterceptor().put(`${userInOutURL}/update`, data)
         return response
     } catch (error) {
         console.log(error)
@@ -108,7 +108,7 @@ export const updateUserTimeRecord = async (data) => {
 
 export const addClockInOut = async (data) => {
     try {
-        const response = axiosInterceptor().post(`${userInOutURL}/addClockInOut`,data)
+        const response = axiosInterceptor().post(`${userInOutURL}/addClockInOut`, data)
         return response
 
     } catch (error) {
@@ -130,6 +130,16 @@ export const deleteUserInOut = async (id) => {
     try {
         const response = axiosInterceptor().delete(`${userInOutURL}/delete/${id}`)
         return response
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const addBulkClockInOut = async (data) => {
+    try {
+        const response = axiosInterceptor().post(`${userInOutURL}/addBulk`, data)
+        return response
+
     } catch (error) {
         console.log(error)
     }
