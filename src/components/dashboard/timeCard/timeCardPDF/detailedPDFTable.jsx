@@ -69,6 +69,7 @@ const DetailedPDFTable = ({ companyInfo, data, startDate, endDate, selectedTab }
         });
         const hrs = Math.floor(totalMinutes / 60);
         const mins = totalMinutes % 60;
+        // const decimal = (Math.round((totalMinutes / 60) * 100) / 100).toFixed(2);
         return `${hrs} hr ${mins} min`;
     };
 

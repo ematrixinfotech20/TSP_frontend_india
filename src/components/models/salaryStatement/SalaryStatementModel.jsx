@@ -146,7 +146,9 @@ function SalaryStatementModel({ setAlert, open, handleClose, id, handleGetStatem
         if (userData?.hourlyRate && watch("totalWorkingHours") !== undefined && watch("totalWorkingHours") !== null) {
             const hourlyRate = parseFloat(userData.hourlyRate) || 0;
             const totalWorkingHours = parseFloat(watch("totalWorkingHours")) || 0;
-            totalSalary = parseInt(totalWorkingHours * hourlyRate) || 0;
+            const hrs = Math.floor(totalWorkingHours);
+            const mins = Math.round((totalWorkingHours - hrs) * 100);
+            totalSalary = Math.round((hrs * hourlyRate) + (mins * hourlyRate / 60.0)) || 0;
         } else {
             const daySalary = parseInt(basicSalary / 30) || 0;
             totalSalary = parseInt(daySalary * (totalWorkingDays + totalPaidDays)) || 0;

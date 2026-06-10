@@ -768,7 +768,7 @@ const AddEmployeeComponent = ({ setAlert, handleSetTitle, handleSetUserDetails }
 
     const handleGetAllDeductions = async () => {
         if (activeStep === 3) {
-            const res = await getAllDeductions(id)
+            const res = await getAllDeductions(id || watch("employeeId"))
             if (res.data.status === 200) {
                 const data = res.data.result || [];
                 const allowances = data?.filter((item) => item?.type === "Allowance")?.map((item) => ({
