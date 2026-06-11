@@ -1,6 +1,22 @@
 import { handleConvertUTCDateToLocalDate, handleFormateUTCDateToLocalDate } from '../../../../service/common/commonService';
 import './timeCardPDF.css'
 
+const renderStatus = (status) => {
+    let color = 'inherit';
+    let fontWeight = 'normal';
+    if (status === 'A') {
+        color = '#ff0000';
+        fontWeight = 'bold';
+    } else if (status === 'W') {
+        color = '#19ff13';
+        fontWeight = 'bold';
+    } else if (status === 'H') {
+        color = '#ff8443';
+        fontWeight = 'bold';
+    }
+    return <span style={{ color, fontWeight }}>{status || '-'}</span>;
+};
+
 const DetailedPDFTable = ({ companyInfo, data, startDate, endDate, selectedTab }) => {
     // ── helpers shared by both modes ──────────────────────────────────────────
     const parseDDMMYYYYTime = (s) => {
@@ -138,7 +154,7 @@ const DetailedPDFTable = ({ companyInfo, data, startDate, endDate, selectedTab }
                                                     <td className="border border-black text-center text-sm h-10">{row.breakTime || '-'}</td>
                                                     <td className="border border-black text-center text-sm h-10">{row.overtime || '-'}</td>
                                                     <td className="border border-black text-center text-sm h-10">{row.workHours || '-'}</td>
-                                                    <td className="border border-black text-center text-sm h-10">{row.status || '-'}</td>
+                                                    <td className="border border-black text-center text-sm h-10">{renderStatus(row.status)}</td>
                                                 </tr>
                                             );
                                         })}
@@ -231,7 +247,7 @@ const DetailedPDFTable = ({ companyInfo, data, startDate, endDate, selectedTab }
                                             <td className="border border-black text-center text-sm h-10">{record?.breakTime || '-'}</td>
                                             <td className="border border-black text-center text-sm h-10">{record?.overtime || '-'}</td>
                                             <td className="border border-black text-center text-sm h-10">{record?.workHours || '-'}</td>
-                                            <td className="border border-black text-center text-sm h-10">{record?.status || '-'}</td>
+                                            <td className="border border-black text-center text-sm h-10">{renderStatus(record?.status)}</td>
                                         </tr>
                                     );
                                 })}

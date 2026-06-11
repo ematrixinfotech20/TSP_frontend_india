@@ -563,6 +563,22 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
             maxWidth: 100,
             align: "left",
             headerAlign: "left",
+            renderCell: (params) => {
+                const status = params.row?.status;
+                let color = 'inherit';
+                let fontWeight = 'normal';
+                if (status === 'A') {
+                    color = '#ff0000';
+                    fontWeight = 'bold';
+                } else if (status === 'W') {
+                    color = '#19ff13';
+                    fontWeight = 'bold';
+                } else if (status === 'H') {
+                    color = '#ff8443';
+                    fontWeight = 'bold';
+                }
+                return <span style={{ color, fontWeight }}>{status || '-'}</span>;
+            }
         },
         {
             field: 'action',
@@ -634,7 +650,25 @@ const TimeCard = ({ handleSetTitle, setAlert }) => {
                 return { ...rest, renderCell: (params) => <div>{params.row.totalHours || '00:00'}</div> };
             }
             if (col.field === 'status') {
-                return { ...rest, renderCell: (params) => <div>{params.row.status || "-"}</div> };
+                return {
+                    ...rest,
+                    renderCell: (params) => {
+                        const status = params.row?.status;
+                        let color = 'inherit';
+                        let fontWeight = 'normal';
+                        if (status === 'A') {
+                            color = '#ff0000';
+                            fontWeight = 'bold';
+                        } else if (status === 'W') {
+                            color = '#19ff13';
+                            fontWeight = 'bold';
+                        } else if (status === 'H') {
+                            color = '#ff8443';
+                            fontWeight = 'bold';
+                        }
+                        return <div style={{ color, fontWeight }}>{status || "-"}</div>;
+                    }
+                };
             }
 
             return rest;

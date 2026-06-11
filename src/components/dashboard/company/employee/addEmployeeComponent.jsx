@@ -209,7 +209,7 @@ const AddEmployeeComponent = ({ setAlert, handleSetTitle, handleSetUserDetails }
     });
 
     const handleOpenDialogDelete = (rowData, index) => {
-        setDeleteId(parseInt(rowData.id))
+        setDeleteId(parseInt(rowData.dbId))
         setDeleteIndex(index)
         setDeleteType(rowData.type)
         setDialogDelete({
@@ -772,13 +772,13 @@ const AddEmployeeComponent = ({ setAlert, handleSetTitle, handleSetUserDetails }
             if (res.data.status === 200) {
                 const data = res.data.result || [];
                 const allowances = data?.filter((item) => item?.type === "Allowance")?.map((item) => ({
-                    id: item.id,
+                    dbId: item.id,
                     type: item.type,
                     label: item.label,
                     amount: item.amount
                 }));
                 const deductions = data?.filter((item) => item?.type === "Deduction")?.map((item) => ({
-                    id: item.id,
+                    dbId: item.id,
                     type: item.type,
                     label: item.label,
                     amount: item.amount
